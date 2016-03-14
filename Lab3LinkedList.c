@@ -9,6 +9,7 @@ typedef struct TaskStruct {
 	int deadline;
 	int task_type;
 	int creation_time;
+	int priority;
 	TaskReference next;
 	TaskReference prev;
 } Task;
@@ -43,6 +44,7 @@ TaskReference initializeTaskNode(int tid, int deadline, int task_type, int creat
 		newTask->deadline = deadline;
 		newTask->task_type = task_type;
 		newTask->creation_time = creation_time;
+		newTask->priority = deadline + creation_time;
 		newTask->next = NULL;
 		newTask->prev = NULL;
 		return newTask;
@@ -63,7 +65,7 @@ void insertTask(QueueReference theQueue, TaskReference newNode)
 	else
 	{
 		TaskReference tempNode = theQueue->head;
-		while(tempNode->deadline + tempNode->creation_time < newNode->deadline + newNode->creation_time)
+		while(tempNode->priority < newNode->priority)
 		{
 			if(tempNode->next == NULL)
 			{
@@ -72,7 +74,7 @@ void insertTask(QueueReference theQueue, TaskReference newNode)
 			tempNode = tempNode->next;
 		}
 		/* Insert at tail */
-		if(tempNode->deadline + tempNode->creation_time < newNode->deadline + newNode->creation_time)
+		if(tempNode->priority < newNode->priority)
 		{
 			tempNode->next = newNode;
 			newNode->prev = tempNode;
