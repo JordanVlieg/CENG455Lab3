@@ -100,6 +100,12 @@ void insertTask(QueueReference theQueue, TaskReference newNode)
 	theQueue->size++;
 }
 
+TaskReference viewHead(QueueReference theQueue)
+{
+	TaskReference returnNode = theQueue->head;
+	return returnNode;
+}
+
 TaskReference removeTaskFromHead(QueueReference theQueue)
 {
 	TaskReference returnNode = theQueue->head;
